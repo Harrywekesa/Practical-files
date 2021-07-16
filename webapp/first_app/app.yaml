@@ -1,0 +1,12 @@
+#Before we can run our web application, we need to provide App Engine with a configuration file. 
+#This is the file that the web server will use to get information about what Python code we want it to run.
+application: hello #This provides a unique identifying name for the application so that we will be able to launch it later; we are giving the name “hello” to our web app.
+version: 1 #This lets App Engine know that this is version 1 of our application. (If we update this later to “version: 2”, App Engine will keep a copy of version 1 in memory so that we can go back to running this previous version if necessary.)
+runtime: python39 #The lines “runtime: python27” and “api_version: 1” let App Engine know that we want to use Python 3.9 to run our application. 
+api_version: 1
+threadsafe: false #This means that our web application isn't designed to be able to receive multiple requests at once; if App Engine has multiple requests then it will send them to our application one at a time instead of all at once.
+handlers: #Finally we define our “handlers” to handle different webpage requests from our users (i.e., if a user requested the main page at “/” or another page at a different address on our site). These requested paths can each be assigned to a different piece of Python code. In this case, we only have one script, hello.py, so we want to direct user requests for any page on the website to the same script.
+- url: /.*
+  script: hello.py
+  
+#The YAML configuration file gives App Engine all the necessary information it needs to run the web application.
